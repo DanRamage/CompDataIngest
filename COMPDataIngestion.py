@@ -5,7 +5,7 @@ import requests
 from datetime import datetime, timedelta
 import time
 import logging.config
-from multiprocessing import Queue, Event, Process
+from multiprocessing import Queue
 
 from multi_process_logging import MainLogConfig, ClientLogConfig, queue_listener_process
 from MultiProcDataSaver import MPDataSaver
@@ -131,7 +131,7 @@ def main():
     logger.exception(e)
   else:
     data_queue = Queue()
-    data_saver = MPDataSaver(data_queue, logging_queue, db_settings_ini)
+    data_saver = MPDataSaver(data_queue, log_conf.logging_queue, db_settings_ini)
     data_saver.start()
 
     if options.end_date is not None:
